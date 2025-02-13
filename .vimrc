@@ -1,17 +1,20 @@
-
-" Turn on syntax highlighting
 syntax on
 call plug#begin()
   Plug 'preservim/nerdtree'
+  Plug 'morhetz/gruvbox'
+  Plug 'preservim/tagbar'
+  Plug 'nathanaelkane/vim-indent-guides' 
+  Plug 'vim-airline/vim-airline'
+  Plug 'ap/vim-buftabline'
 call plug#end()
 " Show line numbers
-:set number relativenumber
+set number relativenumber
 
 " Show file stats
 set ruler
 
-" Blink cursor on error instead of beeping (grr)
-" set visualbell
+" Autocomplete
+inoremap <C-\> <C-x><C-v>
 
 " Encoding
 set encoding=utf-8
@@ -31,12 +34,13 @@ set scrolloff=3
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
+set mouse=a
 
 " copy and paste
 vmap <C-c> "+yi
 vmap <C-x> "+c
-vmap <C-v> c<ESC>"+p
-imap <C-v> <ESC>"+pa
+" vmap <C-v> c<ESC>"+p
+" imap <C-v> <ESC>"+pa
 
 " Move up/down editor lines
 nnoremap j gj
@@ -63,32 +67,29 @@ set ignorecase
 set smartcase
 set showmatch
 map <leader><space> :let @/=''<cr> " clear search
+set path+=**
+set wildmenu
+
 " Remap help key.
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 nnoremap <F1> :set invfullscreen<CR>
 vnoremap <F1> :set invfullscreen<CR>
-" Textmate holdouts
 
-" Formatting
-"map <leader>q gqip
-" Visualize tabs and newlines
-"set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-"map <leader>l :set list!<CR> " Toggle tabs and EOL
-" Color scheme (terminal)
-set t_Co=256
-set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-" put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
-" colorscheme solarized
-"
+
 " NerdTree Settings:
 map <C-b> :NERDTreeToggle<cr>
 map <leader>nb :NERDTreeFromBookmark 
 map <leader>nf :NERDTreeFind<cr>
 " Start NERDTree and leave the cursor in it.
 autocmd VimEnter * NERDTree| wincmd p
+
+set background=dark
+colorscheme gruvbox
+
+" Shortcut Plugins
+nmap <F7> :TagbarToggle<CR>
+
+" Ativa automaticamente as guias de indentação ao iniciar o Vim
+autocmd VimEnter * IndentGuidesEnable
+nnoremap <C-N> :bnext<CR>
+nnoremap <C-P> :bprev<CR>
